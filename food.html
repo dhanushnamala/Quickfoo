@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo.png">
+    <title>QUICKFOO</title>
+    <script>
+        window.onload = function() {
+            showMenu('breakfast');
+        };
+    </script>
+    
+</head>
+<body>        
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p class="nav-logo"><a href="home.html">QUICKFOO</a></p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="home.html" class="link">Home</a></li>
+                    <li><a href="team.html" class="link">Our Team</a></li>
+                    <li><a href="food.html" class="link active">Food</a></li>
+                    <li><a href="rooms.html" class="link ">Rooms</a></li>
+                    <li><a href="about.html" class="link">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+        <div class="menu">
+            <div class="category-buttons">
+                <button onclick="showMenu('breakfast')">Breakfast</button>
+                <button onclick="showMenu('lunch')">Lunch</button>
+                <button onclick="showMenu('snacks')">Snacks</button>
+                <button onclick="showMenu('dinner')">Dinner</button>
+            </div>
+            <div id="menuItems" class="menu-items"></div> 
+            <div class="category-buttons" id="placeOrder" style="display: none;">
+                <button onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+    <div id="billModal" class="module">
+        <div class="module-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Order Summary</h2>
+            <hr>    
+            <div id="orderSummary"></div><hr>
+            <p id="grandTotal"></p>
+        </div>
+    </div>
+    
+    <script>
+        var selectedItems = {
+            breakfast: [],
+            lunch: [],
+            snacks: [],
+            dinner: []
+        };
+
+        function preloadImages() {
+            'img/masala_dosa.jpg',
+                'img/idly.jpg',
+                'img/poha.jpg',
+                'img/upma.jpg',
+                'img/alooparatha.jpg',
+                'img/cholebhature.jpg',
+                'img/poori.jpg',
+                'img/vadapav.jpg',
+                'img/uttapam.jpg',
+                'img/meduvada.jpg',
+                'img/ravaidli.jpg',
+                'img/alootikki.jpg',
+                'img/methi.jpg',
+                'img/butter_chicken.jpg',
+                'img/palak_paneer.jpg',
+                'img/chana_masala.jpg',
+                'img/daltadka.jpg',
+                'img/vegetablebiryani.jpg',
+                'img/pannertikka.jpg',
+                'img/rajmachawal.jpg',
+                'img/aloogobi.jpg',
+                'img/chickencurry.jpg',
+                'img/chickenbiryani.jpg',
+                'img/dalmakhani.jpg',
+                'https://envato-shoebox-0.imgix.net/9f46/1a98-112e-4cd5-a600-9bfd8eaebd2d/DSC_5255.jpg?auto=compress%2Cformat&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&w=1000&fit=max&markalign=center%2Cmiddle&markalpha=18&s=16adfb4ef92e72a56b84a8ef33481764',
+                'img/samosa.jpg',
+                'img/chai.jpeg',
+                'img/sushiroll.jpg',
+                'img/tacos.jpg',
+                'img/pavbhaji.jpg',
+                'img/lassi.jpg',
+                'img/dahivada.jpg',
+                'img/pakora.jpg',
+                'img/jalebi.jpg',
+                'img/bhelpuri.jpg',
+                'img/mangoshake.jpg',
+                'img/kachori.jpg',
+                'img/tandoori_chicken.jpg',
+                'img/mutton_curry.jpg',
+                'img/fishcurry.jpg',
+                'img/kadaipaneer.jpg',
+                'img/chickentikka.jpg',
+                'img/vegetablekorma.jpg',
+                'img/malaikofta.jpg',
+                'img/aloomethi.jpg',
+                'img/pavbhaji.jpg',
+                'img/chickenkorma.jpg',
+                'img/paneerbuttermasala.jpg',
+                'img/dumaloo.jpg',
+                'img/chickenchettinad.jpg'
+        }
+        preloadImages();
+
+        function showMenu(category) {
+            document.getElementById('menuItems').innerHTML = '';
+            if (category === 'breakfast') {
+                displayMenuItems([{ name: 'Masala Dosa', price: '₹60', image: 'img/masala_dosa.jpg' },
+                    { name: 'Idli Sambhar', price: '₹49', image: 'img/idly.jpg' },
+                    { name: 'Poha', price: '₹59' ,image: 'img/poha.jpg'},
+                    { name: 'Upma', price: '₹69' ,image: 'img/upma.jpg'},
+                    { name: 'Aloo Paratha', price: '₹40' ,image: 'img/alooparatha.jpg'},
+                    { name: 'Chole Bhature', price: '₹50' ,image: 'img/cholebhature.jpg'},
+                    { name: 'Poori ', price: '₹49' ,image: 'img/poori.jpg'},
+                    { name: 'Vada Pav', price: '₹30' ,image: 'img/vadapav.jpg'},
+                    { name: 'Uttapam', price: '₹40' , image: 'img/uttapam.jpg'},
+                    { name: 'Medu Vada', price: '₹40',image: 'img/meduvada.jpg' },
+                    { name: 'Rava Idli', price: '₹40',image: 'img/ravaidli.jpg' },
+                    { name: 'Aloo Tikki', price: '₹40' ,image: 'img/alootikki.jpg'},
+                    { name: 'Methi Thepla', price: '₹49' ,image: 'img/methi.jpg'}
+            
+                ], category);
+            } else if (category === 'lunch') {
+                displayMenuItems([
+                { name: 'Butter Chicken', price: '₹299' , image: 'img/butter_chicken.jpg'},
+                { name: 'Palak Paneer', price: '₹349' , image: 'img/palak_paneer.jpg'},
+                { name: 'Chana Masala', price: '₹299' , image: 'img/chana_masala.jpg'},
+                { name: 'Dal Tadka', price: '₹259' , image: 'img/daltadka.jpg'},
+                { name: 'Vegetable Biryani', price: '₹369' , image: 'img/vegetablebiryani.jpg'},
+                { name: 'Paneer Tikka', price: '₹389', image: 'img/pannertikka.jpg' },
+                { name: 'Rajma Chawal', price: '₹379', image: 'https://envato-shoebox-0.imgix.net/9f46/1a98-112e-4cd5-a600-9bfd8eaebd2d/DSC_5255.jpg?auto=compress%2Cformat&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&w=1000&fit=max&markalign=center%2Cmiddle&markalpha=18&s=16adfb4ef92e72a56b84a8ef33481764' },
+                { name: 'Aloo Gobi', price: '₹299' , image: 'img/aloogobi.jpg'},
+                { name: 'Chicken Curry', price: '₹389', image: 'img/chickencurry.jpg' },
+                { name: 'Chicken Biryani', price: '₹399' , image: 'img/chickenbiryani.jpg'},
+                { name: 'Dal Makhani', price: '₹329', image: 'img/dalmakhani.jpg' }
+                ], category);
+            } else if (category === 'snacks') {
+                displayMenuItems([
+                { name: 'Samosa', price: '₹80', image: 'https://images.pexels.com/photos/14477873/pexels-photo-14477873.jpeg?cs=srgb&dl=pexels-karthikeyan-anand-14477873.jpg&fm=jpg' },
+                { name: 'Chai', price: '₹30' ,image: 'img/chai.jpeg'},
+                { name: 'Sushi Roll', price: '₹110' ,image: 'img/sushiroll.jpg'},
+                { name: 'Tacos', price: '₹100' ,image: 'img/tacos.jpg'},
+                { name: 'Pav Bhaji', price: '₹80' ,image: 'img/pavbhaji.jpg'},
+                { name: 'Lassi', price: '₹70' ,image: 'img/lassi.jpg'},
+                { name: 'Dahi Vada', price: '₹120' ,image: 'img/dahivada.jpg'},
+                { name: 'Pakora', price: '₹90' , image: 'img/pakora.jpg'},
+                { name: 'Jalebi', price: '₹80',image: 'img/jalebi.jpg' },
+                { name: 'Bhel Puri', price: '₹70',image: 'img/bhelpuri.jpg' },
+                { name: 'Mango Shake', price: '₹100' ,image: 'img/mangoshake.jpg'},
+                { name: 'Kachori', price: '₹70' ,image: 'img/kachori.jpg'}
+                ], category);
+            } else if (category === 'dinner') {
+                displayMenuItems([
+                { name: 'Tandoori Chicken', price: '₹299', image: 'img/tandoori_chicken.jpg' },
+                { name: 'Mutton Curry', price: '₹349', image: 'img/mutton_curry.jpg' },
+                { name: 'Fish Curry', price: '₹279' , image: 'img/fishcurry.jpg'},
+                { name: 'Kadai Paneer', price: '₹259' , image: 'img/kadaipaneer.jpg'},
+                { name: 'Chicken Tikka Masala', price: '₹279', image: 'img/chickentikka.jpg' },
+                { name: 'Vegetable Korma', price: '₹249' , image: 'img/vegetablekorma.jpg'},
+                { name: 'Malai Kofta', price: '₹269' , image: 'img/malaikofta.jpg'},
+                { name: 'Aloo Methi', price: '₹219' , image: 'img/aloomethi.jpg'},
+                { name: 'Pav Bhaji', price: '₹69', image: 'img/pavbhaji.jpg' },
+                { name: 'Chicken Korma', price: '₹349' , image: 'img/chickenkorma.jpg'},
+                { name: 'Paneer Butter Masala', price: '₹299', image: 'img/paneerbuttermasala.jpg' },
+                { name: 'Dum Aloo', price: '₹279', image: 'img/dumaloo.jpg' },
+                { name: 'Chicken Chettinad', price: '₹379', image: 'img/chickenchettinad.jpg' }    
+                ], category);
+            }
+            var x=document.getElementById("placeOrder");
+            if(x.style.display==='none'){
+                x.style.display='block';
+            }
+        }
+
+        function displayMenuItems(items, category) {
+            var menuItemsContainer = document.getElementById('menuItems');
+
+            items.forEach(function(item) {
+                var menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+
+                var itemImageContainer = document.createElement('div');
+                itemImageContainer.classList.add('item-image-container');
+
+                var itemImage = document.createElement('img');
+                itemImage.src = item.image;
+                itemImage.alt = item.name;
+                itemImage.classList.add('menu-item-img');
+                itemImageContainer.appendChild(itemImage);
+                menuItem.appendChild(itemImageContainer);
+
+                var itemName = document.createElement('h3');
+                itemName.textContent = item.name;
+                menuItem.appendChild(itemName);
+
+                var itemPrice = document.createElement('p');
+                itemPrice.textContent = 'Price: ' + item.price;
+                menuItem.appendChild(itemPrice);
+
+                var quantityContainer = document.createElement('div');
+                quantityContainer.classList.add('quantity-container');
+
+                var minusButton = document.createElement('button');
+                minusButton.textContent = '-';
+                minusButton.classList.add('quantity-btn');
+                minusButton.onclick = function() {
+                    updateQuantity(item, category, -1);
+                };
+                quantityContainer.appendChild(minusButton);
+
+                var quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.min = '0';
+                quantityInput.value = '0';
+                quantityInput.classList.add('quantity-input');
+                quantityContainer.appendChild(quantityInput);
+
+                var plusButton = document.createElement('button');
+                plusButton.textContent = '+';
+                plusButton.classList.add('quantity-btn');
+                plusButton.onclick = function() {
+                    updateQuantity(item, category, 1);
+                };
+                quantityContainer.appendChild(plusButton);
+
+                menuItem.appendChild(quantityContainer);
+
+                menuItemsContainer.appendChild(menuItem);
+            });
+        }
+
+    function updateQuantity(item, category, increment) {
+    var quantityInput = event.target.parentNode.querySelector('.quantity-input');
+    var currentValue = parseInt(quantityInput.value);
+    var quantity = currentValue + increment;
+    quantityInput.value = Math.max(0, quantity);
+
+    var selectedItemIndex = selectedItems[category].findIndex(function(selectedItem) {
+        return selectedItem.name === item.name;
+    });
+
+    if (selectedItemIndex === -1 && quantity > 0) {
+        selectedItems[category].push({ name: item.name, quantity: quantity, price: item.price }); // Include the price here
+    } else if (selectedItemIndex !== -1 && quantity === 0) {
+        selectedItems[category].splice(selectedItemIndex, 1);
+    } else if (selectedItemIndex !== -1 && quantity > 0) {
+        selectedItems[category][selectedItemIndex].quantity = quantity;
+    }
+}
+
+function placeOrder() {
+    console.log("Place Order button clicked.");
+    var orderSummary = '<div class="order-summary">You selected:<br>';
+
+    let totalPrice = 0;
+
+    for (const category in selectedItems) {
+        
+        selectedItems[category].forEach(function(item) {
+            if (item.quantity > 0) {
+                orderSummary += '<div class="order-summary-item">';
+                orderSummary += '<div class="item-details">' + item.name + ' (Quantity: ' + item.quantity + ')</div>';
+                orderSummary += '<div class="item-price">' + item.price + '</div>';
+                orderSummary += '</div>';
+
+                totalPrice += parseInt(item.price.replace('₹', '')) * item.quantity;
+            }
+        });
+    }
+
+    if (orderSummary !== 'You selected:<br>') {
+        const sgst = totalPrice * 0.12; 
+        const cgst = totalPrice * 0.12; 
+        const totalTax = sgst + cgst;
+        const grandTotal = totalPrice + totalTax;
+
+        orderSummary += '<div class="order-summary-item">';
+        orderSummary += '<div class="item-details">SGST (12%):</div>';
+        orderSummary += '<div class="item-price">₹' + sgst.toFixed(2) + '</div>';
+        orderSummary += '</div>';
+
+        orderSummary += '<div class="order-summary-item">';
+        orderSummary += '<div class="item-details">CGST (12%):</div>';
+        orderSummary += '<div class="item-price">₹' + cgst.toFixed(2) + '</div>';
+        orderSummary += '</div>';
+        
+        orderSummary += '<hr>'; 
+
+        orderSummary += '<div class="order-summary-item">';
+        orderSummary += '<div class="item-details">Grand Total:</div>';
+        orderSummary += '<div class="item-price">₹' + grandTotal.toFixed(2) + '</div>';
+        orderSummary += '</div>';
+
+        orderSummary += '</div>'; 
+        document.getElementById('orderSummary').innerHTML = orderSummary;
+        document.getElementById('billModal').style.display = 'block';
+    } else {
+        alert('Please select at least one item.');
+    }
+}
+
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    for (const category in selectedItems) {
+        selectedItems[category].forEach(function(item) {
+            if (item.price && item.quantity) {
+                totalPrice += parseInt(item.price.replace('₹', '')) * item.quantity;
+            }
+        });
+    }
+    return '₹' + totalPrice;
+}
+function closeModal() {
+        document.getElementById('billModal').style.display = 'none';
+    }
+    </script>
+</body>
+</html>

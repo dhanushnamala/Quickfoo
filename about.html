@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo.png">
+    <title>QUICKFOO</title>
+</head>
+<body>
+ <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p class="nav-logo"><a href="home.html">QUICKFOO</a></p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="home.html" class="link">Home</a></li>
+                <li><a href="team.html" class="link">Our Team</a></li>
+                <li><a href="food.html" class="link">Food</a></li>
+                <li><a href="rooms.html" class="link">Rooms</a></li>
+                <li><a href="about.html" class="link active">About</a></li>
+            </ul>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+
+    <div class="form-box-about">
+        <h2>Welcome to QuickFoo</h2>
+        <p> Where Culinary Excellence Meets Comfortable Hospitality At QuickFoo, we're passionate about delivering an unparalleled dining and lodging experience tailored to your convenience. Our platform seamlessly integrates a range of services designed to elevate every aspect of your culinary journey and stay.What We Offer:</p><br>
+        <p><b><u>Effortless Dining: </u></b>Explore our diverse menu curated to tantalize your taste buds. Whether you're craving a quick bite on the go or seeking a cozy dining experience, QuickFoo makes it effortless to order your favorite dishes with just a few clicks.</p><br>
+        <p><b><u>Comfortable Accommodations:</u></b> Need a place to stay? QuickFoo offers charming and comfortable rooms perfect for a relaxing getaway. Our easy-to-use booking system ensures that reserving your accommodation is as simple as enjoying a delicious meal.</p><br>
+        <p><b><u>Convenient Delivery: </u></b>Too busy to dine out? No problem! QuickFoo provides swift and reliable delivery services, bringing our delectable dishes straight to your doorstep. Enjoy restaurant-quality meals in the comfort of your own home.</p><br>
+        <h3><b><u>Our Promise:</u></b></h3><br>
+        <p>At QuickFoo, we prioritize customer satisfaction above all else. From the moment you place your order to the time you check out of your room, we're committed to providing exceptional service and ensuring that your experience with us is nothing short of delightful. Join us at QuickFoo and let us take care of the details while you savor every moment of your culinary and lodging journey.</p>
+    </div>    
+
+<script>
+   
+   function myMenuFunction() {
+    var i = document.getElementById("navMenu");
+
+    if(i.className === "nav-menu") {
+        i.className += " responsive";
+    } else {
+        i.className = "nav-menu";
+    }
+   }
+ 
+</script>
+
+<script>
+    function redirectTo(action) {
+        if (action === 'signin') {
+            window.location.href = 'index.html'; 
+        } else if (action === 'signup') {
+            window.location.href = 'index.html?action=signup'; 
+        }
+    }
+</script>
+</body>
+</html>

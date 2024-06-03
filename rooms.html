@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="icon" href="img/logo.png" />
+    <title>QUICKFOO</title>
+  </head>
+  <body
+    style="
+      background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      overflow-y: scroll;
+    "
+  >
+    <div class="wrapper">
+      <nav class="nav">
+        <div class="nav-logo">
+          <p class="nav-logo"><a href="home.html">QUICKFOO</a></p>
+        </div>
+        <div class="nav-menu" id="navMenu" style="margin-right: 0px ;">
+          <ul>
+            <li><a href="home.html" class="link">Home</a></li>
+            <li><a href="team.html" class="link">Our Team</a></li>
+            <li><a href="food.html" class="link">Food</a></li>
+            <li><a href="rooms.html" class="link active">Rooms</a></li>
+            <li><a href="about.html" class="link">About</a></li>
+          </ul>
+        </div>
+        <div class="nav-button">
+          <button class="btn white-btn" id="bookroom" onclick="login()">
+            BOOK ROOM
+          </button>
+        </div>
+
+        <div id="myModal" class="modal box">
+          <div class="modal-content">
+            <div class="form">
+              <h2 class="head">Booking Form<span class="close" onclick="closeModal()" style="right:100%;padding-left: 30px;">&times;</span></h2>
+              <form id="bookingForm" action="process_booking.php" method="POST">
+                <div class="date-wrapper">
+                  <input
+                    type="date"
+                    id="starting-date"
+                    name="starting-date"
+                    placeholder="Starting Date"
+                  />
+                  <input
+                    type="text"
+                    id="ending-date"
+                    name="ending-date"
+                    placeholder="Ending Date"
+                  />
+                </div>
+                <div class="select-wrapper">
+                  <select id="events" name="room">
+                    <option value="" disabled selected>Room Type</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Deluxue">Deluxue</option>
+                    <option value="Executive">Executive</option>
+                  </select>
+                  <select id="range" name="Adult">
+                    <option value="" disabled selected>Adult</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+                <div class="room-type-wrapper">
+                  <select id="pricing" name="children" style="width: 350px;">
+                    <option value="" disabled selected>children</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+                <p id="error"></p>
+                <button id="openFormBtn" onclick="confirm()">Book Now</button>
+              </form>
+              <div id="confirm" style="display: none;">
+                <div class="confirmation-details">
+                  <span class="label">Checkin Date:</span>
+                  <span class="value" id="checkin"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Checkout Date:</span>
+                  <span class="value" id="checkout"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Adults:</span>
+                  <span class="value" id="noofadults"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Children:</span>
+                  <span class="value" id="noofchildren"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Room Type:</span>
+                  <span class="value" id="room-info"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Price:</span>
+                  <span class="value" id="room-price"></span>
+                </div>
+                <div class="confirmation-details">
+                  <span class="label">Room Number:</span>
+                  <span class="value" id="roomno"></span>
+                </div>
+              </div>
+              
+          </div>
+        </div>
+
+        <div class="nav-menu-btn">
+          <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+      </nav>
+      <div class="card-container">
+        <div class="card">
+          <div class="content">
+            <div class="front">
+              <div class="room-info">
+                <div class="room-type">Single Room</div>
+                <div class="room-price">₹1000 per night</div>
+              </div>
+              <div
+                class="background-image"
+                style="background-image: url('./img/singlebed.JPG')"
+              ></div>
+              <div class="description">
+                <h3>Single Room</h3>
+                <p>
+                  Comfortable accommodation perfect for solo travelers, equipped
+                  with essential amenities such as a cozy bed, work desk, and
+                  private bathroom.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="content">
+            <div class="front">
+              <div class="room-info">
+                <div class="room-type">Double Room</div>
+                <div class="room-price">₹2500 per night</div>
+              </div>
+              <div
+                class="background-image"
+                style="
+                  background-image: url('https://media.istockphoto.com/id/503692556/photo/cabin-in-a-luxury-private-motor-yacht.jpg?s=612x612&w=0&k=20&c=cRy0Dp-Sz36_JCHh4rwaMhfAURr1hg9gchfDp4qTTag=');
+                "
+              ></div>
+              <div class="description">
+                <h3>Double Room</h3>
+                <p>
+                  Ideal for couples or small families, featuring a spacious
+                  layout with a double bed or twin beds, along with amenities
+                  like a TV, mini-fridge, and en-suite bathroom.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="content">
+            <div class="front">
+              <div class="room-info">
+                <div class="room-type">Deluxe Room</div>
+                <div class="room-price">₹4500 per night</div>
+              </div>
+              <div
+                class="background-image"
+                style="
+                  background-image: url('./img/Deluxe\ rooms.jpg');
+                  background-size: 575px;
+                "
+              ></div>
+              <div class="description">
+                <h3>Deluxe Room</h3>
+                <p>
+                  A luxurious retreat offering extra space and enhanced
+                  amenities such as premium bedding, a seating area,
+                  complimentary toiletries, and access to hotel facilities like
+                  a swimming pool or gym.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="content">
+            <div class="front">
+              <div class="room-info">
+                <div class="room-type">ExecutiveRoom</div>
+                <div class="room-price">₹8000 per night</div>
+              </div>
+              <div
+                class="background-image"
+                style="background-image: url('./img/exceutivesuite.jpg')"
+              ></div>
+              <div class="description">
+                <h3>Executive Room</h3>
+                <p>
+                  Designed for discerning guests seeking utmost comfort and
+                  convenience, these rooms boast upscale furnishings, panoramic
+                  views, additional perks like a welcome drink, and exclusive
+                  access to a dedicated lounge or business center.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-container">
+      <h2>Aminities</h2>
+      <div class="slides">
+        <div class="slide-item">
+          <img src="img/swimmigpool.jpg" alt="Room 1" />
+          <div class="slide-info">
+            <h3>Swimming Pool</h3>
+          </div>
+        </div>
+        <div class="slide-item">
+          <img src="img/gym.jpg" alt="Room 2" />
+          <div class="slide-info">
+            <h3>GYM</h3>
+          </div>
+        </div>
+        <div class="slide-item">
+          <img src="img/sauna.jpg" alt="Room 3" />
+          <div class="slide-info">
+            <h3>Sauna</h3>
+          </div>
+        </div>
+        <div class="slide-item">
+          <img src="img/spa.jpg" alt="Room 4" />
+          <div class="slide-info">
+            <h3>SPA</h3>
+          </div>
+        </div>
+        <div class="slide-item">
+          <img
+            src="https://res.cloudinary.com/simplotel/image/upload/x_0,y_98,w_940,h_529,r_0,c_crop,q_80,fl_progressive/w_550,f_auto,c_fit/marasa-sarovar-premiere-tirupati/Free_WiFi,__Hotel_Marasa_Sarovar_Premiere_Tirupati,_best_hotels_in_tirupati"
+            alt="Room 1"
+          />
+          <div class="slide-info">
+            <h3>Wifi Services</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+      flatpickr("#starting-date", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+      });
+
+      flatpickr("#ending-date", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+      });
+
+      document
+        .querySelector(".form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); 
+          console.log("Form submitted");
+        });
+      var modal = document.getElementById("myModal");
+      var btn = document.getElementById("bookroom");
+      var span = document.getElementsByClassName("close")[0];
+
+      btn.onclick = function () {
+        modal.style.display = "block";
+        bookingForm.reset();
+        document.getElementById("error").innerText = "";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+      
+      function confirm() {
+  event.preventDefault();
+  var startingDate = document.getElementById("starting-date").value;
+  var endingDate = document.getElementById("ending-date").value;
+  var roomType = document.getElementById("events").value;
+  var adults = document.getElementById("range").value;
+  var children = document.getElementById("pricing").value;
+
+  if (!startingDate || !endingDate || !roomType || !adults || !children) {
+    document.getElementById("error").innerText = "Please Enter all fields";
+    return;
+  }
+
+  var startDate = new Date(startingDate);
+  var endDate = new Date(endingDate);
+
+  if (startDate >= endDate) {
+    document.getElementById("error").innerText = "Check-in date must be before check-out date";
+    return;
+  }
+
+  var timeDiff = endDate - startDate;
+  var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  var pricePerNight;
+  if (roomType == 'Single') {
+    pricePerNight = 1000;
+  } else if (roomType == 'Double') {
+    pricePerNight = 2500;
+  } else if (roomType == 'Deluxue') {
+    pricePerNight = 4500;
+  } else if (roomType == 'Executive') {
+    pricePerNight = 8000;
+  }
+  var totalPrice = pricePerNight * daysDiff;
+
+  var roomNumber = generateRoomNumber();
+  document.getElementById("confirm").style.display = "block";
+  document.getElementById("bookingForm").style.display = "none";
+  document.getElementById("checkin").innerText = startingDate;
+  document.getElementById("checkout").innerText = endingDate;
+  document.getElementById("noofadults").innerText = adults;
+  document.getElementById("noofchildren").innerText = children;
+  document.getElementById("room-info").innerText = roomType;
+  document.getElementById("room-price").innerText = totalPrice;
+  document.getElementById("roomno").innerText = roomNumber;
+}
+
+    function generateRoomNumber() {
+        return Math.floor(Math.random() * 900) + 100;
+    }
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+        bookingForm.reset();
+    }
+
+  </script>
+  </body>
+</html>

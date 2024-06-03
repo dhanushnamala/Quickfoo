@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo.png">
+    <title>QUICKFOO</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p class="nav-logo"><a href="home.html">QUICKFOO</a></p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="home.html" class="link">Home</a></li>
+                    <li><a href="team.html" class="link active">Our Team</a></li>
+                    <li><a href="food.html" class="link ">Food</a></li>
+                    <li><a href="rooms.html" class="link ">Rooms</a></li>
+                    <li><a href="about.html" class="link">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>   
+        <div class="video-container" id="1">
+            <video autoplay muted loop id="video-player">
+                <source src="img/project.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay">
+                <h2>PROJECT TEAM</h2>
+            </div>
+            <div class="content2">
+                <div class="content">
+                    <img src="img/dhanush formal photo.png">
+                    <p>NAMALA DHANUSH</p>
+                </div>
+                <div class="content">    
+                    <img src="img/yash.jpg">
+                    <p>YASH AGARWAL</p>
+                </div>   
+                <div class="content"> 
+                    <img src="img/varshith.jpg">
+                    <p>GORREPATI VARSHITH</p>
+                </div>
+                <div class="content">
+                    <img src="img/swaroop.jpg">
+                    <p> ANDRA HEMA SWAROOP </p>
+                </div>
+            </div>
+        </div>
+        <div class="video-container" id="2" style="display: none;">
+            <video autoplay muted loop id="video-player">
+                <source src="img/cook.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay">
+                <h2>CHEFS</h2>
+            </div>
+            <div class="content2">
+                <div class="content">
+                    <img src="img/team-1.jpg">
+                    <p>CHEF 1</p>
+                </div>
+                <div class="content">    
+                    <img src="img/team-2.jpg">
+                    <p>CHEF 2</p>
+                </div>   
+                <div class="content"> 
+                    <img src="img/team-3.jpg">
+                    <p>CHEF 3</p>
+                </div>
+                <div class="content">
+                    <img src="img/team-4.jpg">
+                    <p> CHEF 4</p>
+                </div>
+            </div>
+        </div>
+        <div class="video-container" id="3" style="display: none;">
+            <video autoplay muted loop id="video-player">
+                <source src="img/hotelstaff.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay">
+                <h2>HOTEL AND LODGING STAFF</h2>
+            </div>
+            <div class="content2">
+                <div class="content">
+                    <img src="https://www.shutterstock.com/image-photo/asian-girl-receptionist-caucasian-woman-260nw-1964198212.jpg">
+                    <p>Reciptionist</p>
+                </div>
+                <div class="content">    
+                    <img src="img/manager.jpg">
+                    <p>Manager</p>
+                </div>   
+                <div class="content"> 
+                    <img src="https://static.vecteezy.com/system/resources/previews/035/446/219/non_2x/portrait-of-beautiful-hotel-maid-holding-clean-and-fresh-towels-and-showing-thumb-up-photo.jpg">
+                    <p>House Keeping</p>
+                </div>
+                <div class="content">
+                    <img src="img/pr.jpg">
+                    <p> Public Relations </p>
+                </div>
+            </div>
+        </div>
+        <button id="prev-btn" class="nav-btn left-btn">&lt;</button>
+        <button id="next-btn" class="nav-btn right-btn">&gt;</button>
+    </div>    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentVideoIndex = 1;
+            var videoContainers = document.querySelectorAll(".video-container");
+
+            function showCurrentVideo() {
+                videoContainers.forEach(function(container, index) {
+                    if (index + 1 === currentVideoIndex) {
+                        container.style.display = "block";
+                    } else {
+                        container.style.display = "none";
+                    }
+                });
+            }
+
+            showCurrentVideo();
+
+            document.getElementById("prev-btn").addEventListener("click", function() {
+                if(currentVideoIndex=="1")
+                    currentVideoIndex=3;
+                else
+                    currentVideoIndex = Math.max(1, currentVideoIndex - 1);
+                showCurrentVideo();
+            });
+
+            document.getElementById("next-btn").addEventListener("click", function() {
+                currentVideoIndex = Math.min(3, (currentVideoIndex%3) + 1);
+                showCurrentVideo();
+            });
+        });
+    </script>
+</body>
+</html>

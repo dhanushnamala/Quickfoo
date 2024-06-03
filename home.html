@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo.png">
+    <title>QUICKFOO</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p class="nav-logo"><a href="home.html">QUICKFOO</a></p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    
+                    <li><a href="home.html" class="link active">Home</a></li>
+                    <li><a href="team.html" class="link">Our Team</a></li>
+                    <li><a href="food.html" class="link">Food</a></li>
+                    <li><a href="rooms.html" class="link">Rooms</a></li>
+                    <li><a href="about.html" class="link">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+        <div class="home">
+            <h1>Savor the Flavor
+                <button class="image-button" onclick="redirectTo('food.html')">FOOD</button>
+            </h1>
+            <h2>Taste the Difference!
+                <button class="image-buttony" onclick="redirectTo('rooms.html')">ROOMS</button>
+            </h2>    
+        </div>
+    </div> 
+    <script>
+        function redirectTo(action) {
+            if (action === 'signin') {
+                window.location.href = 'index.html'; 
+            } else if (action === 'signup') {
+                window.location.href = 'index.html?action=signup'; 
+            } else if (action === 'food.html') {
+                window.location.href = 'food.html'; 
+            } else if (action === 'rooms.html') {
+                window.location.href = 'rooms.html'; 
+            }
+        }
+    </script>      
+</body>
+</html>
